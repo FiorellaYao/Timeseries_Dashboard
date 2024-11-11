@@ -15,22 +15,22 @@ const useWebSocket = (
     const ws = new WebSocket("ws://localhost:8080");
 
     ws.onopen = () => {
-      console.log("Conexión WebSocket abierta.");
+      console.log("Open Websocket Connection");
     };
 
     ws.onmessage = (event) => {
-      // Verifica si es el mensaje de conexión
-      if (event.data === "Conexión exitosa con server.py") {
-        console.log("Conexión con el servidor establecida.");
-        return; // Si es el mensaje de conexión, solo logueamos y no hacemos nada más
+      // Backend connection message
+      if (event.data === "Successful connection to app.py") {
+        console.log("Connection to server established");
+        return;
       }
 
       try {
-        // Intenta parsear el mensaje (solo si no es el mensaje de conexión)
+        // Parse the message
         const message = JSON.parse(event.data);
-        console.log("Mensaje recibido del servidor:", message); // Añadido para depurar
+        console.log("Message received from server:", message);
 
-        // Verifica que los datos contengan las claves esperadas
+        // Verify that the data contains the expected keys
         if (
           message.Bid !== undefined &&
           message.Ask !== undefined &&
@@ -45,28 +45,28 @@ const useWebSocket = (
             timestamp: message.Timestamp,
           };
 
-          // Actualiza el estado de los activos
+          // Update the status of the assets
           setAssets((prevAssets) => {
             const updatedAssets = [...prevAssets, newAsset];
-            console.log("Datos actualizados de assets:", updatedAssets); 
+            console.log("Updated asset data:", updatedAssets);
             return updatedAssets;
           });
         }
       } catch (error) {
-        console.error("Error al procesar el mensaje WebSocket:", error);
+        console.error("Error processing WebSocket message:", error);
       }
     };
 
 
     ws.onerror = (error) => {
-      console.error("Error en la conexión WebSocket:", error);
+      console.error("WebSocket connection failed:", error);
     };
 
     ws.onclose = () => {
-      console.log("Conexión WebSocket cerrada.");
+      console.log("WebSocket connection closed");
     };
 
-    // Cierra la conexión WebSocket al desmontar el componente
+    // Close the WebSocket connection when the component is unmounted
     return () => ws.close();
   }, [setAssets]);
 };

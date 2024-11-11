@@ -25,7 +25,7 @@ interface Asset {
 export const AppRouter = () => {
   const [assets, setAssets] = useState<Asset[]>([]);
 
-  // Usar el servicio WebSocket
+  // Service WebSocket
   useWebSocket(setAssets);
 
   const router = createBrowserRouter([

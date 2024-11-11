@@ -74,7 +74,7 @@ export const MenuBurgerButton = () => {
             onClick={() => handleNavigation("/book")}
             sx={{ color: "black", textDecoration: "none" }}
           >
-            Configuración
+            Configuration
           </MenuItem>
         </Menu>
       </Box>

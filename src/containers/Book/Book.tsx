@@ -13,25 +13,25 @@ interface BookProps {
 }
 
 const Book = ({ assets }: BookProps) => {
-  console.log("Datos de assets:", assets);
+  console.log("Asset data:", assets);
 
   if (assets.length === 0) {
-    return <Typography variant="h6">No hay activos disponibles.</Typography>;
+    return <Typography variant="h6">No assets available</Typography>;
   }
 
   return (
     <Box sx={{ padding: '20px' }}>
       <Typography variant="h4" gutterBottom>
-        Precios de Activos
+        Asset Prices
       </Typography>
       <TableContainer component={Paper}>
         <Table>
         <TableBody>
             {assets.map((asset, index) => {
-              console.log("Información del activo:", asset);
+              console.log("Asset information:", asset);
               return (
                 <TableRow key={index}>
-                  <TableCell>Activo: {asset.name}</TableCell>
+                  <TableCell>Asset: {asset.name}</TableCell>
                   <TableCell>Timestamp: {asset.timestamp}</TableCell>
                   <TableCell>Bid: {asset.bid}</TableCell>
                   <TableCell>Last: {asset.last}</TableCell>

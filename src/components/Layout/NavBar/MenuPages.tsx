@@ -21,7 +21,7 @@ const MenuPages = () => {
         <Link
           key={page.name}
           component={RouterLink}
-          to={page.path}  // Se establece el path de cada enlace
+          to={page.path} 
           sx={{ color: "black", textDecoration: "none", margin: "0 10px" }}
         >
           <Button
