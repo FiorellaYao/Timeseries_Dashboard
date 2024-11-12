@@ -1,5 +1,7 @@
 import { Box, CssBaseline } from "@mui/material";
 import HomeScreenBackground from "../../components/Home/HomeScreenBackground"
+import HomeAssets from "../../components/Home/HomeAssets"
+
 const Home = () => {
   return (
     <Box>
@@ -11,6 +13,7 @@ const Home = () => {
       >
         <CssBaseline />
         <HomeScreenBackground />
+        <HomeAssets />
       </Box>
     </Box>
   );

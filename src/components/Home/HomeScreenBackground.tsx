@@ -1,8 +1,7 @@
 import backgroundImage from "../../assets/background_timeseries.png";
 import { Box, Typography, Container } from "@mui/material";
-//import styles from "./styles/HomeScreenBackground.module.css";
 
-const App: React.FC = () => {
+const HomeScreenBackground: React.FC = () => {
   return (
     <Box
       style={{
@@ -42,4 +41,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default HomeScreenBackground;

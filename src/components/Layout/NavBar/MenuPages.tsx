@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Link as RouterLink} from "react-router-dom";
 
 const pages = [
-  { name: "Inicio", path: "/home" },
+  { name: "Home", path: "/home" },
   { name: "Book", path: "/book" },
-  { name: "Asset Data", path: "/asset-data" }
+  { name: "Plot", path: "/plot" }
 ];
 
 const MenuPages = () => {
