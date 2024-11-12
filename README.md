@@ -29,7 +29,7 @@ Show the local url to enter to view the project
 
 ## Notes
 
-We have 3 divisions: Home, Book and Plot, which can be seen in the navbar to navigate in each of them.
+The project has 3 divisions: Home, Book and Plot, which can be seen in the navbar to navigate in each of them.
 
 - **The first section 'Home'** has a background photo with a welcome sign and below the 4 assets are shown (WTI, SOY, YPF, SP500) that when moving the mouse over it shows their volatility percentage and return of each asset.
 
