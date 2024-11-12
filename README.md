@@ -6,13 +6,21 @@ From the Backend I used Python to create the project.
 
 ### Steps
 
-1. Open/Select the folder with the files: `app.py` and `README.md`.
-2. Locate and open the `app.py` file.
-3. Open a terminal in the folder and run the following command: 
+1. Open the terminal and clone the project
+2. Call the remote branches with: `git fetch` and `git branch -r`
+3. Create a local branch with the information from the remote with: 
+   ```bash
+   git checkout -b Back-end origin/Back-end 
+4. Fetch all the information that the remote branch has with: 
+   ```bash
+   git pull origin Back-end
+5. Open/Select the folder with the files: `app.py` and `README.md`.
+6. Locate and open the `app.py` file.
+7. Open a terminal in the folder and run the following command: 
    ```bash
    python app.py
 
-4. And it will display the message `WebSocket server started at ws://localhost:8080`
+8. And it will display the message `WebSocket server started at ws://localhost:8080`
 And this is how the WebSocket server is started
 
 ## Notes
