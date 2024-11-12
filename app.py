@@ -35,10 +35,10 @@ def simulator_asset_price(mu_symbol, sigma_symbol, initial_price, spread, days):
     return simulated_prices
 
 # Send each new simulated price via Websocket
-async def send_price_ws(ws, asset_name, simulated_prices):
+async def send_price_ws(ws, name, simulated_prices):
     # Simulated prices of each asset
     for S_i in simulated_prices:
-        spread = assets[asset_name]["spread"]
+        spread = assets[name]["spread"]
         decimals = len(str(spread).split('.')[1]) if '.' in str(spread) else 0
 
         print(f"S_i: {S_i}, Spread: {spread}")
@@ -51,6 +51,7 @@ async def send_price_ws(ws, asset_name, simulated_prices):
         
         # JSON message
         message = json.dumps({
+            "Name": name,
             "Bid": bid,
             "Ask": ask,
             "Last": last,
@@ -59,7 +60,7 @@ async def send_price_ws(ws, asset_name, simulated_prices):
         
         # Display message via WebSocket
         await ws.send(message)
-        print(f"Activo simulado {asset_name}: {message}")
+        print(f"Activo simulado {name}: {message}")
         
         # The messages is sent every 200 milliseconds
         await asyncio.sleep(0.2)
@@ -69,25 +70,35 @@ async def echo(websocket, path):
     await websocket.send("Successful connection to app.py")
     print("Client connected")
     
-    # Simulate prices for each asset
-    days = 7  # Simulate prices for 7 days
-    for asset_name, asset_info in assets.items():
-        simulated_prices = simulator_asset_price(
-            asset_info["mu_symbol"],
-            asset_info["sigma_symbol"],
-            asset_info["initial_price"],
-            asset_info["spread"],
-            days
-        )
-        print(f"\nPrice simulation for {asset_name}:")
-        
-        # Send simulated prices
-        await send_price_ws(websocket, asset_name, simulated_prices)
-    
+    # Default to 6 days if no days provided
+    days = 6  # Default value
+
     try:
         async for message in websocket:
             print(f"Message received on websocket: {message}")
-            await websocket.send(f"Echo: {message}")
+            # If the message contains a number of days, update 'days'
+            try:
+                data = json.loads(message)
+                if 'days' in data:
+                    days = int(data['days'])  # Update days if provided
+                    print(f"Simulating for {days} days")
+            except json.JSONDecodeError:
+                pass  # Ignore messages that don't contain 'days'
+            
+            # Simulate prices for each asset
+            for asset_name, asset_info in assets.items():
+                simulated_prices = simulator_asset_price(
+                    asset_info["mu_symbol"],
+                    asset_info["sigma_symbol"],
+                    asset_info["initial_price"],
+                    asset_info["spread"],
+                    days
+                )
+                print(f"\nPrice simulation for {asset_name}:")
+                
+                # Send simulated prices
+                await send_price_ws(websocket, asset_name, simulated_prices)
+
     except websockets.exceptions.ConnectionClosed as e:
         print(f"Close connection: {e}")
 
